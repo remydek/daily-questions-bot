@@ -1,1 +1,18 @@
 
+name: Daily Questions
+on:
+  schedule:
+    - cron: '45 1 * * *'
+jobs:
+  send-questions:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+      - run: npm install
+      - run: node index.js
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          CHAT_ID: ${{ secrets.CHAT_ID }}
